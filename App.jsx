@@ -2,42 +2,39 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
-  const [bgColor, setBgColor] = useState('white');
-  const colors = ['lightpink', 'lightblue', 'lightcoral', 'lightgreen', 'lightyellow', 'lightgrey'];
+  const [input1, setInput1] = useState('');
+  const [input2, setInput2] = useState('');
+  const [result, setResult] = useState(null);
+
+  const handleAdd = () => setResult(Number(input1) + Number(input2));
+  const handleSubtract = () => setResult(Number(input1) - Number(input2));
+  const handleMultiply = () => setResult(Number(input1) * Number(input2));
+  const handleDivide = () => setResult(Number(input1) / Number(input2));
 
   return (
-    <div style={{ 
-      backgroundColor: bgColor, 
-      height: '100vh', 
-      width: '100vw', 
-      fontFamily: 'Poppins', 
-      display: 'flex', 
-      justifyContent: 'center', 
-      alignItems: 'center', 
-      flexDirection: 'column' 
-    }}>
-      <h1 style={{ color: 'black', fontWeight: '400' }}>Click to Change Background Color</h1>
+    <div className="App">
+      <h1>Simple Calculator</h1>
+      <input
+        type="number"
+        value={input1}
+        onChange={(e) => setInput1(e.target.value)}
+        placeholder="Enter a number"
+      />
+      <input
+        type="number"
+        value={input2}
+        onChange={(e) => setInput2(e.target.value)}
+        placeholder="Enter another number"
+      />
       <div>
-        {colors.map((color) => (
-          <button
-            key={color}
-            onClick={() => setBgColor(color)}
-            style={{
-              backgroundColor: color,
-              border: 'none',
-              padding: '10px 20px',
-              margin: '10px',
-              borderRadius: '10px',
-              cursor: 'pointer',
-              fontSize: '16px',
-              fontFamily: 'Poppins',
-              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            }}
-          >
-            {color}
-          </button>
-        ))}
+        <button onClick={handleAdd}>Add</button>
+        <button onClick={handleSubtract}>Subtract</button>
+        <button onClick={handleMultiply}>Multiply</button>
+        <button onClick={handleDivide}>Divide</button>
       </div>
+      {result !== null && (
+        <h2>Result: <strong>{result}</strong></h2>
+      )}
     </div>
   );
 }
